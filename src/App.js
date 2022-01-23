@@ -1,7 +1,7 @@
 import { Fragment, useState, useEffect } from "react";
 import "./App.css";
-import Auth from "./components/auth";
-import Header from "./components/Header";
+import Auth from "./components/Auth/auth";
+import Header from "./components/Navigation/Header";
 function App() {
   const [isFormShown, setIsFormShown] = useState(false);
   const [isLoginState, setIsLoginState] = useState(false);

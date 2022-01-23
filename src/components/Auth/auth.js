@@ -1,7 +1,7 @@
-import useInput from "../hooks/use-input";
+import useInput from "../../hooks/use-input";
 import logoImg from "../assests/signIn.jpg";
 import classes from "./auth.module.css";
-import Modal from "./UI/Modal";
+import Modal from "../UI/Modal";
 
 const Auth = (props) => {
   let formIsValid = false;
