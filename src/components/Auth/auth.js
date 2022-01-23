@@ -1,5 +1,5 @@
 import useInput from "../../hooks/use-input";
-import logoImg from "../assests/signIn.jpg";
+import logoImg from "../../assests/signIn.jpg";
 import classes from "./auth.module.css";
 import Modal from "../UI/Modal";
 
