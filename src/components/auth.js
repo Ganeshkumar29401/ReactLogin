@@ -1,8 +1,10 @@
 import useInput from "../hooks/use-input";
 import logoImg from "../assests/signIn.jpg";
-import classes from "./SignIn.module.css";
+import classes from "./auth.module.css";
 import Modal from "./UI/Modal";
-const SignUp = (props) => {
+
+const Auth = (props) => {
+  let formIsValid = false;
   const {
     value: enteredEmail,
     isValid: emailIsValid,
@@ -29,12 +31,17 @@ const SignUp = (props) => {
     BlurHandler: rPassBlurHandler,
     resetHandler: rPassResetHandler,
   } = useInput((val) => val.trim() === enteredPass && val.trim() !== "");
-
-  let formIsValid = false;
-
-  if (emailIsValid && passIsValid && rPassIsValid) {
-    formIsValid = true;
+  
+  if (props.isLogin) {
+    if (emailIsValid && passIsValid) {
+      formIsValid = true;
+    }
+  } else {
+    if (emailIsValid && passIsValid && rPassIsValid) {
+      formIsValid = true;
+    }
   }
+
   const emailClass = emailHasError
     ? `${classes.inputControl} ${classes.invalid}`
     : `${classes.inputControl}`;
@@ -49,12 +56,13 @@ const SignUp = (props) => {
   const formSubmitHandler = (event) => {
     event.preventDefault();
     if (emailHasError && passHasError && rPassHasError) {
+        console.log("error");
       return;
     }
     emailResetHandler();
     passResetHandler();
     rPassResetHandler();
-    props.onSwitch('SignIn');
+    props.onCancel();
   };
 
   return (
@@ -93,38 +101,40 @@ const SignUp = (props) => {
             </p>
           )}
         </div>
-        <div className={rPassClass}>
-          <label htmlFor="rPass">Reenter Password</label>
-          <input
-            value={enteredRPass}
-            onChange={rPassChangeHandler}
-            onBlur={rPassBlurHandler}
-            type="password"
-            id="rPass"
-          />
-          {rPassHasError && (
-            <p className={classes.errorText}>
-              Enter the same password as before
-            </p>
-          )}
-        </div>
+        {!props.isLogin && (
+          <div className={rPassClass}>
+            <label htmlFor="rPass">Reenter Password</label>
+            <input
+              value={enteredRPass}
+              onChange={rPassChangeHandler}
+              onBlur={rPassBlurHandler}
+              type="password"
+              id="rPass"
+            />
+            {rPassHasError && (
+              <p className={classes.errorText}>
+                Enter the same password as before
+              </p>
+            )}
+          </div>
+        )}
         <div className={classes.actions}>
           <button type="button" onClick={props.onCancel}>
             Cancel
           </button>
           <button onClick={formSubmitHandler} disabled={!formIsValid}>
-            SignUp
+            {props.isLogin ? "SignIn" : "SignUp"}
           </button>
         </div>
         <div className={classes.switchSignup}>
           <p>
-            Go back
+            {props.isLogin ? "Don't have an account ? " : "Go back"}
             <span
               onClick={() => {
-                props.onSwitch("SignIn");
+                props.onChangeLoginState();
               }}
             >
-              SignIn
+              {props.isLogin ? "SignUp" : "SignIn"}
             </span>
           </p>
         </div>
@@ -133,4 +143,4 @@ const SignUp = (props) => {
   );
 };
 
-export default SignUp;
+export default Auth;

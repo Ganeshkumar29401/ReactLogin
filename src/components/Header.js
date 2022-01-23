@@ -5,10 +5,10 @@ const Header = (props) => {
     <header className={classes.header}>
       <h2>{props.heading}</h2>
       <div className={classes.actions}>
-        <button type="button" onClick={() => props.onSet("SignIn")}>
+        <button type="button" onClick={() => props.onAction('SignIn')}>
           Log in
         </button>
-        <button type="button" onClick={() => props.onSet("SignUp")}>
+        <button type="button" onClick={() => props.onAction('SignUp')}>
           Sign up
         </button>
       </div>

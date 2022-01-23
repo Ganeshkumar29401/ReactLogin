@@ -1,46 +1,39 @@
-import { Fragment, useState, useEffect, useCallback } from "react";
+import { Fragment, useState, useEffect } from "react";
 import "./App.css";
+import Auth from "./components/auth";
 import Header from "./components/Header";
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
 function App() {
-  const [isSignInClicked, setIsSignInClicked] = useState(false);
-  const [isSignUpClicked, setIsSignUpClicked] = useState(false);
   const [isFormShown, setIsFormShown] = useState(false);
-  const findWhichComponentIsSet = useCallback((nameOfComponent) => {
-    console.log("callback callibg");
-    if (nameOfComponent === "SignIn") {
-      setIsSignInClicked(true);
-      setIsFormShown(true);
-      setIsSignUpClicked(false);
-    }
-    if (nameOfComponent === "SignUp") {
-      setIsSignUpClicked(true);
-      setIsSignInClicked(false);
-      setIsFormShown(true);
-    }
-  },[]);
-
-  const closeForm = () => {
+  const [isLoginState, setIsLoginState] = useState(false);
+  const openAuthForm = (action= 'SignIn') => {
+    action === "SignIn" ? setIsLoginState(true) : setIsLoginState(false);
+    setIsFormShown(true);
+  };
+  const closeAuthForm = () => {
     setIsFormShown(false);
   };
 
+  const changeLoginStateHandler = ()=>{
+    setIsLoginState((prevState) => !prevState)
+  }
+
   useEffect(() => {
-    const timer = setTimeout(()=>findWhichComponentIsSet("SignIn"), 3000);
+    const timer = setTimeout(() => openAuthForm(), 3000);
     return () => {
       clearTimeout(timer);
     };
-  }, [findWhichComponentIsSet]);
+  }, []);
 
   return (
     <Fragment>
-      <Header heading="Trending Blog" onSet={findWhichComponentIsSet} />
+      <Header heading="Trending Blog" onAction={openAuthForm} />
       <section>
-        {isSignInClicked && isFormShown && (
-          <SignIn onCancel={closeForm} onSwitch={findWhichComponentIsSet} />
-        )}
-        {isSignUpClicked && isFormShown && (
-          <SignUp onCancel={closeForm} onSwitch={findWhichComponentIsSet} />
+        {isFormShown && (
+          <Auth
+            isLogin={isLoginState}
+            onChangeLoginState={changeLoginStateHandler}
+            onCancel={closeAuthForm}
+          />
         )}
       </section>
     </Fragment>
