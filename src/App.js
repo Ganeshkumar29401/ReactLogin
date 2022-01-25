@@ -1,6 +1,7 @@
 import { Fragment, useState, useEffect } from "react";
 import "./App.css";
 import Auth from "./components/Auth/auth";
+import MainAction from "./components/Main/MainAction";
 import Header from "./components/Navigation/Header";
 function App() {
   const [isFormShown, setIsFormShown] = useState(false);
@@ -27,6 +28,7 @@ function App() {
   return (
     <Fragment>
       <Header heading="Trending Blog" onAction={openAuthForm} />
+      <MainAction />
       <section>
         {isFormShown && (
           <Auth
