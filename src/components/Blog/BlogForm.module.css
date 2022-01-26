@@ -1,0 +1,92 @@
+.formWrapper{
+    padding: 2rem;
+    width: 80%;
+    max-width: 45rem;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.form{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fields{
+    display: flex;
+    flex-flow: column nowrap;
+    margin-bottom: 1rem;
+}
+
+.fields label{
+    font-weight: 700;
+    padding: 0.3rem 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.fields input,
+.fields textarea{
+    font: inherit;
+    padding: 0.5rem;
+    width: inherit;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 4px;
+}
+
+.fields textarea {
+    resize: none;
+    height: 7rem;
+    width: inherit;
+}
+
+.fields input:focus,
+.fields textarea:focus{
+    outline: none;
+    border-color: #ec6630;
+    background: #e0d4fd;;
+}
+
+.form_actions{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+
+.form_actions button:nth-of-type(even){
+    cursor: pointer;
+    border: 1px solid #f11e1e;
+    background-color: #fff;
+    color: #f11e1e;
+    padding: 0.4rem 1rem;
+    border-radius: 5px;
+    font-size: 1.2rem;
+}
+
+.form_actions button:nth-of-type(even):hover,
+.form_actions button:nth-of-type(even):active{
+    background-color: #f11e1e;
+    color: #fff;
+}
+
+.form_actions button:nth-of-type(odd){
+    cursor: pointer;
+    border: 1px solid #35db51;
+    background-color: #fff;
+    color: #35db51;
+    padding: 0.4rem 1.4rem;
+    border-radius: 5px;
+    font-size: 1.2rem;
+}
+
+.form_actions button:nth-of-type(odd):hover,
+.form_actions button:nth-of-type(odd):active
+{
+    background-color: #35db51;
+    color: #fff;
+}
