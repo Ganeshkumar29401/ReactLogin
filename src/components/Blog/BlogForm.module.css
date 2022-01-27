@@ -1,17 +1,18 @@
 .formWrapper{
     padding: 2rem;
-    width: 80%;
+    width: 70%;
     max-width: 45rem;
+    margin: 7rem auto 0;
     background-color: #fff;
     border-radius: 10px;
 }
 
-.form{
+/* .form{
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
 .fields{
     display: flex;
@@ -89,4 +90,8 @@
 {
     background-color: #35db51;
     color: #fff;
+}
+
+.error_text{
+    color: red;
 }
