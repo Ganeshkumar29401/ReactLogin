@@ -46,7 +46,7 @@
 .fields input:focus,
 .fields textarea:focus{
     outline: none;
-    border-color: #ec6630;
+    border-color: #7900FF;
     background: #e0d4fd;;
 }
 
@@ -83,6 +83,15 @@
     padding: 0.4rem 1.4rem;
     border-radius: 5px;
     font-size: 1.2rem;
+}
+
+.form_actions button:nth-of-type(odd):disabled,
+.form_actions button:nth-of-type(odd):disabled:hover
+{
+    border-color: #ccc;
+    background-color: #fff;
+    color: #ccc;
+    cursor: not-allowed;
 }
 
 .form_actions button:nth-of-type(odd):hover,

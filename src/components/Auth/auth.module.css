@@ -53,7 +53,7 @@
   }
   
   .inputControl input:focus {
-    border-color: black;
+    border-color: #7900FF;
     background-color: rgb(177, 201, 247);
   }
   
@@ -76,7 +76,7 @@
   
   .actions button {
     border: none;
-    background: #d16533;
+    background: #7900FF;
     padding: 0.6rem 0.8rem;
     margin: 0.6rem 0 1rem 0.5rem;
     color: #fff;
@@ -88,7 +88,7 @@
   
   .actions button:hover,
   .actions button:active {
-    background: #d16533;
+    background: #7900FF;
     color: #fff;
     transition: 0.2s;
   }

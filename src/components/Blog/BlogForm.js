@@ -1,7 +1,9 @@
 import useInput from "../../hooks/use-input";
 import classes from "./BlogForm.module.css";
+import {useNavigate} from 'react-router-dom';
 const BlogForm = (props) => {
   let formIsValid = false;
+  const navigate = useNavigate();
   const {
     value: enteredTitle,
     isValid: titleIsValid,
@@ -46,6 +48,7 @@ const BlogForm = (props) => {
     titleResetHandler();
     authorResetHandler();
     desResetHandler();
+    navigate('/blogs', {replace:false});
   };
   return (
       <form className={classes.formWrapper}>

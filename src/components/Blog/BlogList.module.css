@@ -1,0 +1,28 @@
+.main{
+    display: flex;
+    flex-direction: column;
+}
+
+.main h2{
+    text-align: left;
+    text-decoration: underline;
+}
+
+.main p{
+    width: 80%;
+    margin: 0 auto;
+    text-align: justify;
+    text-indent: 10%;
+    font-size: 1.2rem;
+    padding: 1rem 0;
+    line-height: 1.5;
+}
+
+.author{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    color: #333;
+    font-weight: 500;
+}
+
