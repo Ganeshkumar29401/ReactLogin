@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.main_content {
+  background: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  width: 80%;
+  max-width: 40rem;
+}
+
+.main_content p{
+    font-size: 1.2rem;
+    line-height: 1.4;
+    text-align: justify;
+    margin-bottom: 1rem;
+    white-space: pre-wrap;
+}
+
+.main_content span{
+    display: flex;
+    justify-content: flex-end;
+    color: #7900FF;
+    font-weight: 500;
+}

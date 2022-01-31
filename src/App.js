@@ -5,6 +5,7 @@ import Auth from "./components/Auth/auth";
 import Blog from "./components/Blog/Blog";
 import Header from "./components/Navigation/Header";
 import BlogForm from "./components/Blog/BlogForm";
+import BlogDetails from "./components/Blog/BlogDetails";
 function App() {
   const [isFormShown, setIsFormShown] = useState(false);
   const [isLoginState, setIsLoginState] = useState(false);
@@ -26,13 +27,13 @@ function App() {
   //     clearTimeout(timer);
   //   };
   // }, [openAuthForm]);
-
   return (
     <Fragment>
       <Header heading="Trending Blog" onAction={openAuthForm} />
       <Routes>
         <Route path="/" element={<Navigate to="/blogs" />} />
-        <Route path="/blogs" element={<Blog />} />
+        <Route path="/blogs"  element={<Blog />} />
+        <Route path="/blogs/:blogid" element={<BlogDetails />}/>
         <Route path="/addblogs" element={<BlogForm />} />
       </Routes>
       <section>

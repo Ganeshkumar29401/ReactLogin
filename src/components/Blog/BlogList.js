@@ -1,12 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import classes from './BlogList.module.css';
 
 const BlogList = props => {
-    return (<li>
+    const navi = useNavigate();
+    return (<li onClick={()=> navi(`/blogs/${props.id}`, {replace:false})}>
         <div className={classes.main}>
             <h2>{props.title}</h2>
-            <p>{props.description}</p>
-        </div>
-        <div className={classes.author}>
             <p>by {props.author}</p>
         </div>
     </li>);

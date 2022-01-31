@@ -40,11 +40,6 @@ const BlogForm = (props) => {
     if (!titleIsValid && !authorIsValid && !desIsValid) {
       return;
     }
-    console.log({
-      title: enteredTitle,
-      des: enteredDes,
-      author: enteredAuthor,
-    });
     titleResetHandler();
     authorResetHandler();
     desResetHandler();

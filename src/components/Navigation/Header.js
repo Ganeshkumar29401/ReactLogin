@@ -1,10 +1,10 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import classes from "./Header.module.css";
 const Header = (props) => {
   return (
     <header className={classes.header}>
-      <h2>{props.heading}</h2>
+      <Link to="/blogs" className={classes.heading}>{props.heading}</Link>
       <div className={classes.navigation}>
         <NavLink className={({isActive}) => (isActive ? classes.active : "")} to='/blogs'>
           Blogs
