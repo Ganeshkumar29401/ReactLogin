@@ -1,15 +1,22 @@
-
+import React from "react";
+import { useState } from "react";
 
 export const BlogContext = React.createContext({
-    items:[],
-    addItems: ()=>{},
-    removeItems : (id) => {},
+    isShown:false,
+    setIsShown : ()=>{},
 });
 
 
-const ContextProvider=()=>{
-    return <BlogContext.Provider value={}>
-
+const ContextProvider=(props)=>{
+    const [isShown, setIsShown] = useState(false);
+    const initialValue = {
+        isShown,
+        setIsShown
+    };
+    return <BlogContext.Provider value={initialValue}>
+        {props.children}
     </BlogContext.Provider>
 };
+
+export default ContextProvider;
 

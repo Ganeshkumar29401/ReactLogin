@@ -1,11 +1,12 @@
 .wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
 }
 
-.main_content {
+.box {
   background: #fff;
   border-radius: 5px;
   padding: 20px;
@@ -13,17 +14,37 @@
   max-width: 40rem;
 }
 
-.main_content p{
-    font-size: 1.2rem;
-    line-height: 1.4;
-    text-align: justify;
-    margin-bottom: 1rem;
-    white-space: pre-wrap;
+.main_content p {
+  font-size: 1.2rem;
+  line-height: 1.4;
+  text-align: justify;
+  margin-bottom: 1rem;
 }
 
-.main_content span{
-    display: flex;
-    justify-content: flex-end;
-    color: #7900FF;
-    font-weight: 500;
+.main_content span {
+  display: flex;
+  justify-content: flex-end;
+  color: #7900ff;
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.actions button {
+  cursor: pointer;
+  border: 1px solid #f11e1e;
+  background-color: #fff;
+  color: #f11e1e;
+  padding: 0.4rem 1rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+}
+
+.actions button:hover {
+  background-color: #f11e1e;
+  color: #fff;
 }

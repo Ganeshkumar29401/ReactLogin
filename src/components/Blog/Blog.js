@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import classes from "./Blog.module.css";
 import BlogList from "./BlogList";
-
+import { BlogContext } from "../store/blog-context";
+import Loader from "../UI/Loader";
 const Blog = (props) => {
   const [blogList, setBlogList] = useState([]);
+  const context = useContext(BlogContext);
   useEffect(() => {
+    context.setIsShown(true);
     const domain = process.env.REACT_APP_PROTOCAL;
     const url = process.env.REACT_APP_BACKEND;
     const getData = async () => {
@@ -15,34 +18,39 @@ const Blog = (props) => {
         }
         const data = await request.json();
         const listArr = [];
-  
-        for(const key in data){
+
+        for (const key in data) {
           listArr.push({
-            id:key,
-            title:data[key].title,
-            description:data[key].des,
-            author : data[key].author,
+            id: key,
+            title: data[key].title,
+            description: data[key].des,
+            author: data[key].author,
           });
         }
-        setBlogList(listArr)
+        setBlogList(listArr);
+        context.setIsShown(false);
       } catch (error) {
         console.log(error.message);
       }
     };
     getData();
-  }, []);
+  },[]);
+  console.log(context.isShown);
   return (
     <ul className={classes.lists}>
-      {blogList.length === 0 && <p>No List</p>}
-      {blogList.reverse().map((ele) => (
-        <BlogList
-          key={ele.id}
-          id={ele.id}
-          title={ele.title}
-          description={ele.description}
-          author={ele.author}
-        />
-      ))}
+      {context.isShown && <Loader />}
+      {!context.isShown &&
+        blogList
+          .reverse()
+          .map((ele) => (
+            <BlogList
+              key={ele.id}
+              id={ele.id}
+              title={ele.title}
+              description={ele.description}
+              author={ele.author}
+            />
+          ))}
     </ul>
   );
 };

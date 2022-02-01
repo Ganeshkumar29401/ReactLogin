@@ -1,7 +1,11 @@
+import {useContext,Fragment} from 'react';
 import useInput from "../../hooks/use-input";
 import classes from "./BlogForm.module.css";
 import { useNavigate } from "react-router-dom";
+import {BlogContext} from '../store/blog-context';
+import Loader from '../UI/Loader';
 const BlogForm = (props) => {
+  const context = useContext(BlogContext);
   let formIsValid = false;
   const navigate = useNavigate();
   const {
@@ -37,6 +41,7 @@ const BlogForm = (props) => {
 
   const formClickHandler = async (event) => {
     event.preventDefault();
+    context.setIsShown(true);
     if (!titleIsValid && !authorIsValid && !desIsValid) {
       return;
     }
@@ -57,12 +62,14 @@ const BlogForm = (props) => {
       };
       const response = await (await fetch(BLOG_URI, requestPayload)).json();
       console.log(response);
+      context.setIsShown(false);
     } catch (error) {
       console.log(error);
     }
     navigate("/blogs", { replace: false });
   };
-  return (
+  return (<Fragment>
+    {context.isShown && <Loader />}
     <form className={classes.formWrapper}>
       <div className={classes.fields}>
         <label htmlFor="title">Title</label>
@@ -115,6 +122,7 @@ const BlogForm = (props) => {
         </button>
       </div>
     </form>
+    </Fragment>
   );
 };
 
