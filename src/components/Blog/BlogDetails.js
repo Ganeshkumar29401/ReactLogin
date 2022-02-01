@@ -21,14 +21,15 @@ const BlogDetails = (props) => {
         }
         const res = await req.json();
         setData(res);
+        setIsShown(false);
       };
       call();
-      setIsShown(false);
+     
     } catch (error) {
       console.log(error.message);
     }
   }, [blogid]);
-  return (
+  return (  
     <Fragment>
       {isShown && <Loader />}
       {!isShown && (
