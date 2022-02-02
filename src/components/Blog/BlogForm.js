@@ -2,7 +2,7 @@ import {useContext,Fragment} from 'react';
 import useInput from "../../hooks/use-input";
 import classes from "./BlogForm.module.css";
 import { useNavigate } from "react-router-dom";
-import {BlogContext} from '../store/blog-context';
+import {BlogContext} from '../../store/blog-context';
 import Loader from '../UI/Loader';
 const BlogForm = (props) => {
   const context = useContext(BlogContext);
@@ -61,7 +61,7 @@ const BlogForm = (props) => {
         headers: { "Content-Type": "application/json" },
       };
       const response = await (await fetch(BLOG_URI, requestPayload)).json();
-      console.log(response);
+    
       context.setIsShown(false);
     } catch (error) {
       console.log(error);

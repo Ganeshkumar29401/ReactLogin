@@ -1,7 +1,7 @@
 import { useEffect, useContext, useState } from "react";
 import classes from "./Blog.module.css";
 import BlogList from "./BlogList";
-import { BlogContext } from "../store/blog-context";
+import { BlogContext } from "../../store/blog-context";
 import Loader from "../UI/Loader";
 const Blog = (props) => {
   const [blogList, setBlogList] = useState([]);

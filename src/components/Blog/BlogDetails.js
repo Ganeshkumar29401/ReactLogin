@@ -1,10 +1,11 @@
 import { useEffect, useContext, useState, Fragment } from "react";
-import { BlogContext } from "../store/blog-context";
+import { BlogContext } from "../../store/blog-context";
 import { useParams } from "react-router-dom";
 import classes from "./BlogDetails.module.css";
 import Loader from "../UI/Loader";
 
 const BlogDetails = (props) => {
+  const {BlogId} = props;
   const [data, setData] = useState({});
   const { blogid } = useParams();
   const { setIsShown, isShown } = useContext(BlogContext);
@@ -29,6 +30,9 @@ const BlogDetails = (props) => {
       console.log(error.message);
     }
   }, [blogid, setIsShown]);
+  const deleteBlogHandler = () => {
+    console.log(BlogId);
+  };
   return (  
     <Fragment>
       {isShown && <Loader />}
@@ -40,7 +44,7 @@ const BlogDetails = (props) => {
               <span>by {data.author}</span>
             </div>
             <div className={classes.actions}>
-              <button type="button">Delete</button>
+              <button type="button" onClick={deleteBlogHandler}>Delete</button>
             </div>
           </div>
         </div>
