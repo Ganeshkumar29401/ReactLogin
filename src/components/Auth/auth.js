@@ -1,8 +1,8 @@
 import useInput from "../../hooks/use-input";
-import logoImg from "../../assests/signIn.jpg";
 import classes from "./auth.module.css";
 import Modal from "../UI/Modal";
-
+import Login from '../../assests/login.svg';
+import SignUp from '../../assests/signup.svg';
 const Auth = (props) => {
   let formIsValid = false;
   const {
@@ -68,9 +68,9 @@ const Auth = (props) => {
   return (
     <Modal onCancel={props.onCancel}>
       <div className={classes.image}>
-        <img src={logoImg} alt="img" />
-        {/* <loginSvg /> */}
-        <hr />
+        {/* <Login /> */}
+        <img src={props.isLogin ? Login : SignUp} alt="img" />
+        {/* <hr /> */}
       </div>
       <form className={classes.form}>
         <div className={emailClass}>

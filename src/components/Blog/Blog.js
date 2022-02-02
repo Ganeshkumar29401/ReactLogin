@@ -35,14 +35,11 @@ const Blog = (props) => {
     };
     getData();
   },[]);
-  console.log(context.isShown);
   return (
     <ul className={classes.lists}>
       {context.isShown && <Loader />}
       {!context.isShown &&
-        blogList
-          .reverse()
-          .map((ele) => (
+        blogList.map((ele) => (
             <BlogList
               key={ele.id}
               id={ele.id}

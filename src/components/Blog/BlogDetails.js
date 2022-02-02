@@ -28,7 +28,7 @@ const BlogDetails = (props) => {
     } catch (error) {
       console.log(error.message);
     }
-  }, [blogid]);
+  }, [blogid, setIsShown]);
   return (  
     <Fragment>
       {isShown && <Loader />}
