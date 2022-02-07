@@ -8,7 +8,7 @@ const BlogDetails = (props) => {
   const {BlogId} = props;
   const [data, setData] = useState({});
   const { blogid } = useParams();
-  const { setIsShown, isShown } = useContext(BlogContext);
+  const { setIsShown, isShown,setBlogId,deleteListArr } = useContext(BlogContext);
   useEffect(() => {
     setIsShown(true);
     try {
@@ -31,7 +31,8 @@ const BlogDetails = (props) => {
     }
   }, [blogid, setIsShown]);
   const deleteBlogHandler = () => {
-    console.log(BlogId);
+    setBlogId(BlogId);
+    deleteListArr(BlogId);
   };
   return (  
     <Fragment>

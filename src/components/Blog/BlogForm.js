@@ -1,13 +1,11 @@
-import {useContext,Fragment} from 'react';
+import { useContext, Fragment } from "react";
 import useInput from "../../hooks/use-input";
 import classes from "./BlogForm.module.css";
-import { useNavigate } from "react-router-dom";
-import {BlogContext} from '../../store/blog-context';
-import Loader from '../UI/Loader';
+import { BlogContext } from "../../store/blog-context";
+import Loader from "../UI/Loader";
 const BlogForm = (props) => {
-  const context = useContext(BlogContext);
+  const { isShown, addListArr } = useContext(BlogContext);
   let formIsValid = false;
-  const navigate = useNavigate();
   const {
     value: enteredTitle,
     isValid: titleIsValid,
@@ -41,87 +39,75 @@ const BlogForm = (props) => {
 
   const formClickHandler = async (event) => {
     event.preventDefault();
-    context.setIsShown(true);
     if (!titleIsValid && !authorIsValid && !desIsValid) {
       return;
     }
-    titleResetHandler();
-    authorResetHandler();
-    desResetHandler();
-    const BLOG_URI = `${process.env.REACT_APP_PROTOCAL}://${process.env.REACT_APP_BACKEND}/blogs.json`;
-    try {
-      const bodyData = {
+    addListArr(
+      {
         title: enteredTitle,
         des: enteredDes,
         author: enteredAuthor,
-      };
-      const requestPayload = {
-        method: "POST",
-        body: JSON.stringify(bodyData),
-        headers: { "Content-Type": "application/json" },
-      };
-      const response = await (await fetch(BLOG_URI, requestPayload)).json();
-    
-      context.setIsShown(false);
-    } catch (error) {
-      console.log(error);
-    }
-    navigate("/blogs", { replace: false });
+      }
+    );
+    titleResetHandler();
+    authorResetHandler();
+    desResetHandler();
   };
-  return (<Fragment>
-    {context.isShown && <Loader />}
-    <form className={classes.formWrapper}>
-      <div className={classes.fields}>
-        <label htmlFor="title">Title</label>
-        <input
-          type="text"
-          value={enteredTitle}
-          onBlur={titleBlurHandler}
-          onChange={titleChangeHandler}
-          id="title"
-        />
-        {titleIsInvalid && (
-          <p className={classes.error_text}>Title can't be empty</p>
-        )}
-        <label htmlFor="author">Author</label>
-        <input
-          type="text"
-          value={enteredAuthor}
-          onChange={authorChangeHandler}
-          onBlur={authorBlurHandler}
-          id="author"
-        />
-        {authorIsInvalid && (
-          <p className={classes.error_text}>Author can't be empty</p>
-        )}
-        <label htmlFor="des">Description</label>
-        <textarea
-          type="text"
-          id="des"
-          onChange={desChangeHandler}
-          value={enteredDes}
-          onBlur={desBlurHandler}
-        />
-        {desIsInvalid && (
-          <p className={classes.error_text}>Description can't be empty</p>
-        )}
-      </div>
-      <div className={classes.form_actions}>
-        <button onClick={formClickHandler} disabled={!formIsValid}>
-          Add
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            titleResetHandler();
-            authorResetHandler();
-            desResetHandler();
-          }}
-        >
-          Clear
-        </button>
-      </div>
-    </form>
+  return (
+    <Fragment>
+      {isShown && <Loader />}
+      <form className={classes.formWrapper}>
+        <div className={classes.fields}>
+          <label htmlFor="title">Title</label>
+          <input
+            type="text"
+            value={enteredTitle}
+            onBlur={titleBlurHandler}
+            onChange={titleChangeHandler}
+            id="title"
+          />
+          {titleIsInvalid && (
+            <p className={classes.error_text}>Title can't be empty</p>
+          )}
+          <label htmlFor="author">Author</label>
+          <input
+            type="text"
+            value={enteredAuthor}
+            onChange={authorChangeHandler}
+            onBlur={authorBlurHandler}
+            id="author"
+          />
+          {authorIsInvalid && (
+            <p className={classes.error_text}>Author can't be empty</p>
+          )}
+          <label htmlFor="des">Description</label>
+          <textarea
+            type="text"
+            id="des"
+            onChange={desChangeHandler}
+            value={enteredDes}
+            onBlur={desBlurHandler}
+          />
+          {desIsInvalid && (
+            <p className={classes.error_text}>Description can't be empty</p>
+          )}
+        </div>
+        <div className={classes.form_actions}>
+          <button onClick={formClickHandler} disabled={!formIsValid}>
+            Add
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              titleResetHandler();
+              authorResetHandler();
+              desResetHandler();
+            }}
+          >
+            Clear
+          </button>
+        </div>
+      </form>
     </Fragment>
   );
 };

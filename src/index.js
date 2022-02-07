@@ -6,10 +6,10 @@ import App from "./App";
 import ContextProvider from "./store/blog-context";
 
 ReactDOM.render(
-  <ContextProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <ContextProvider>
       <App />
-    </BrowserRouter>
-  </ContextProvider>,
+    </ContextProvider>
+  </BrowserRouter>,
   document.getElementById("root")
 );
