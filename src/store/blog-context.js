@@ -85,6 +85,7 @@ const ContextProvider = (props) => {
   };
 
   const signUp = async (emailValue, passValue) => {
+    console.log(process.env.REACT_APP_API_KEY);
     const requestBody = {
       email: emailValue,
       password: passValue,
@@ -97,7 +98,7 @@ const ContextProvider = (props) => {
     };
     try {
       const request = await fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAaBsCwhZipSPT3E37F8d9YWGvinuusZcc",
+        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_API_KEY}`,
         requestPayload
       );
       if (!request.ok) {
@@ -111,6 +112,7 @@ const ContextProvider = (props) => {
     }
   };
   const login = async(emailValue,passValue) => {
+    console.log(process.env.API_KEY)
     const requestBody = {
       email: emailValue,
       password: passValue,
@@ -123,7 +125,7 @@ const ContextProvider = (props) => {
     };
     try {
       const request = await fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAaBsCwhZipSPT3E37F8d9YWGvinuusZcc",
+        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_API_KEY}`,
         requestPayload
       );
       if (!request.ok) {
