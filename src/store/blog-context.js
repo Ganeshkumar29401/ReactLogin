@@ -12,6 +12,8 @@ export const BlogContext = React.createContext({
   addListArr: (list) => {},
   deleteListArr: (id) => {},
   fetchListData: () => {},
+  signUp: (email, pass) => {},
+  login: () => {},
 });
 
 const ContextProvider = (props) => {
@@ -20,7 +22,7 @@ const ContextProvider = (props) => {
   const [blogId, setBlogId] = useState("");
   const navigate = useNavigate();
   const addBlog = async (listObj) => {
-      setIsShown(true);
+    setIsShown(true);
     const BLOG_URI = `${process.env.REACT_APP_PROTOCAL}://${process.env.REACT_APP_BACKEND}/blogs.json`;
     try {
       const bodyData = listObj;
@@ -37,23 +39,23 @@ const ContextProvider = (props) => {
     }
     navigate("/blogs", { replace: false });
   };
-  const removeList = async(id) => {
-      console.log(listArr);
-      setIsShown(true);
-      const BLOG_URI = `${process.env.REACT_APP_PROTOCAL}://${process.env.REACT_APP_BACKEND}/blogs/${id}.json`;
-      try {
-        const requestPayload = {
-          method: "DELETE",
-          body: JSON.stringify({id}),
-          headers: { "Content-Type": "application/json" },
-        };
-        const response = await (await fetch(BLOG_URI, requestPayload)).json();
-        console.log(response);
-        setIsShown(false);
-      } catch (error) {
-        console.log(error);
-      }
-      navigate("/blogs", { replace: false });
+  const removeList = async (id) => {
+    console.log(listArr);
+    setIsShown(true);
+    const BLOG_URI = `${process.env.REACT_APP_PROTOCAL}://${process.env.REACT_APP_BACKEND}/blogs/${id}.json`;
+    try {
+      const requestPayload = {
+        method: "DELETE",
+        body: JSON.stringify({ id }),
+        headers: { "Content-Type": "application/json" },
+      };
+      const response = await (await fetch(BLOG_URI, requestPayload)).json();
+      console.log(response);
+      setIsShown(false);
+    } catch (error) {
+      console.log(error);
+    }
+    navigate("/blogs", { replace: false });
   };
   const fetchListData = async () => {
     setIsShown(true);
@@ -81,6 +83,59 @@ const ContextProvider = (props) => {
       console.log(error.message);
     }
   };
+
+  const signUp = async (emailValue, passValue) => {
+    const requestBody = {
+      email: emailValue,
+      password: passValue,
+      returnSecureToken: true,
+    };
+    const requestPayload = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    };
+    try {
+      const request = await fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAaBsCwhZipSPT3E37F8d9YWGvinuusZcc",
+        requestPayload
+      );
+      if (!request.ok) {
+        throw new Error("Something went wrong");
+      }
+      const data = await request.json();
+
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const login = async(emailValue,passValue) => {
+    const requestBody = {
+      email: emailValue,
+      password: passValue,
+      returnSecureToken: true,
+    };
+    const requestPayload = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    };
+    try {
+      const request = await fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAaBsCwhZipSPT3E37F8d9YWGvinuusZcc",
+        requestPayload
+      );
+      if (!request.ok) {
+        throw new Error("Something went wrong");
+      }
+      const data = await request.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+    navigate('/blogs', {replace:true});
+  };
   const initialValue = {
     isShown,
     setIsShown,
@@ -91,6 +146,8 @@ const ContextProvider = (props) => {
     addListArr: addBlog,
     deleteListArr: removeList,
     fetchListData,
+    signUp,
+    login,
   };
   return (
     <BlogContext.Provider value={initialValue}>

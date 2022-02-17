@@ -1,9 +1,9 @@
 import useInput from "../../hooks/use-input";
 import classes from "./auth.module.css";
-import Modal from "../UI/Modal";
-import Login from '../../assests/login.svg';
-import SignUp from '../../assests/signup.svg';
+import { BlogContext } from "../../store/blog-context";
+import { useContext } from "react";
 const Auth = (props) => {
+  const {signUp,login} = useContext(BlogContext);
   let formIsValid = false;
   const {
     value: enteredEmail,
@@ -59,6 +59,11 @@ const Auth = (props) => {
         console.log("error");
       return;
     }
+    if(!props.isLogin){
+      signUp(enteredEmail,enteredRPass);
+    }else{
+      login(enteredEmail,enteredPass);
+    }
     emailResetHandler();
     passResetHandler();
     rPassResetHandler();
@@ -66,12 +71,7 @@ const Auth = (props) => {
   };
 
   return (
-    <Modal onCancel={props.onCancel}>
-      <div className={classes.image}>
-        {/* <Login /> */}
-        <img src={props.isLogin ? Login : SignUp} alt="img" />
-        {/* <hr /> */}
-      </div>
+    <div className={classes.wrapper}>
       <form className={classes.form}>
         <div className={emailClass}>
           <label htmlFor="email">Email</label>
@@ -100,7 +100,7 @@ const Auth = (props) => {
               Password must contain 8 characters
             </p>
           )}
-        </div>
+          </div>
         {!props.isLogin && (
           <div className={rPassClass}>
             <label htmlFor="rPass">Reenter Password</label>
@@ -118,6 +118,7 @@ const Auth = (props) => {
             )}
           </div>
         )}
+        
         <div className={classes.actions}>
           <button type="button" onClick={props.onCancel}>
             Cancel
@@ -139,7 +140,7 @@ const Auth = (props) => {
           </p>
         </div>
       </form>
-    </Modal>
+    </div>
   );
 };
 

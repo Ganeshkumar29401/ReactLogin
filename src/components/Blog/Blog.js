@@ -12,7 +12,7 @@ const Blog = (props) => {
   return (
     <ul className={classes.lists}>
       {isShown && <Loader />}
-      {listArr.length===0 && <EmptyBlog/>}
+      {listArr.length===0 && !isShown && <EmptyBlog/>}
       {!isShown &&
         listArr.map((ele) => (
             <BlogList

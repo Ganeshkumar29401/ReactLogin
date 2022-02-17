@@ -25,7 +25,7 @@ const BlogDetails = (props) => {
         setIsShown(false);
       };
       call();
-     
+      
     } catch (error) {
       console.log(error.message);
     }
