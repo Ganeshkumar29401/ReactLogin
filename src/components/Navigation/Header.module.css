@@ -22,8 +22,9 @@
 .actions {
   display: flex;
   flex-flow: row nowrap;
-  width: 200px;
-  justify-content: space-between;
+  max-width: 20rem;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 .actions button {

@@ -56,7 +56,7 @@ const BlogForm = (props) => {
   return (
     <Fragment>
       {isShown && <Loader />}
-      <form className={classes.formWrapper}>
+      <form className={classes.formWrapper} autoComplete="off">
         <div className={classes.fields}>
           <label htmlFor="title">Title</label>
           <input

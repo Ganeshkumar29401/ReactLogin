@@ -6,7 +6,6 @@ import Blogs from "./pages/Blogs";
 import Header from "./components/Navigation/Header";
 import AddBlog from "./pages/AddBlog";
 import SingleBlog from "./pages/SingleBlog";
-
 function App() {
   const [isFormShown, setIsFormShown] = useState(false);
   const [isLoginState, setIsLoginState] = useState(false);
