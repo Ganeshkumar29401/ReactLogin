@@ -7,8 +7,6 @@ export const BlogContext = React.createContext({
   setIsShown: () => {},
   isLoggedIn: false,
   setLogin: () => {},
-  blogId: "",
-  setBlogId: () => {},
   listArr: [],
   setListArr: () => {},
   addListArr: (list) => {},
@@ -16,13 +14,13 @@ export const BlogContext = React.createContext({
   fetchListData: () => {},
   signUp: (email, pass) => {},
   login: (email, pass) => {},
+  logout:()=>{},
 });
 
 const ContextProvider = (props) => {
   const [isShown, setIsShown] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [listArr, setListArr] = useState([]);
-  const [blogId, setBlogId] = useState("");
   const [userId, setUserId] = useState("");
   const navigate = useNavigate();
   const addBlog = async (listObj) => {
@@ -37,8 +35,7 @@ const ContextProvider = (props) => {
         body: JSON.stringify(bodyData),
         headers: { "Content-Type": "application/json" },
       };
-      const response = await (await fetch(BLOG_URI, requestPayload)).json();
-      console.log(response);
+      await (await fetch(BLOG_URI, requestPayload)).json();
       setIsShown(false);
     } catch (error) {
       console.log(error);
@@ -46,7 +43,6 @@ const ContextProvider = (props) => {
     navigate("/blogs", { replace: false });
   };
   const removeList = async (id) => {
-    console.log(listArr);
     setIsShown(true);
     const BLOG_URI = `${process.env.REACT_APP_PROTOCAL}://${process.env.REACT_APP_BACKEND}/blogs/${id}.json`;
     try {
@@ -55,13 +51,12 @@ const ContextProvider = (props) => {
         body: JSON.stringify({ id }),
         headers: { "Content-Type": "application/json" },
       };
-      const response = await (await fetch(BLOG_URI, requestPayload)).json();
-      console.log(response);
+      await (await fetch(BLOG_URI, requestPayload)).json();
+      navigate("/blogs", { replace: false });
       setIsShown(false);
     } catch (error) {
       console.log(error);
     }
-    navigate("/blogs", { replace: false });
   };
   const fetchListData = async () => {
     setIsShown(true);
@@ -70,23 +65,22 @@ const ContextProvider = (props) => {
     try {
       const request = await fetch(`${domain}://${url}/blogs.json/`);
       if (!request.ok) {
+        setIsShown(false);
         throw new Error("something went wrong");
       }
       const data = await request.json();
       const listArr = [];
-      console.log(data);
       for (const key in data) {
         listArr.push({
-          id: key,
+          blogId: key,
+          id: data[key].id,
           title: data[key].title,
           description: data[key].des,
           author: data[key].author,
         });
       }
-      console.log(userId);
-      const finalArr = listArr.filter(blog => blog.id !== userId);
-      console.log(finalArr);
-      setListArr(finalArr);
+      const finalArr = listArr.filter(blog => blog.id === userId);
+      setListArr(finalArr); 
       setIsShown(false);
     } catch (error) {
       console.log(error.message);
@@ -94,7 +88,6 @@ const ContextProvider = (props) => {
   };
 
   const signUp = async (emailValue, passValue) => {
-    console.log(process.env.REACT_APP_API_KEY);
     const requestBody = {
       email: emailValue,
       password: passValue,
@@ -113,15 +106,12 @@ const ContextProvider = (props) => {
       if (!request.ok) {
         throw new Error("Something went wrong");
       }
-      const data = await request.json();
-
-      console.log(data);
+      await request.json();
     } catch (error) {
       console.log(error);
     }
   };
   const login = async (emailValue, passValue) => {
-    setIsShown(true);
     const requestBody = {
       email: emailValue,
       password: passValue,
@@ -132,6 +122,7 @@ const ContextProvider = (props) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
     };
+    setIsShown(true);
     try {
       const request = await fetch(
         `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_API_KEY}`,
@@ -140,22 +131,23 @@ const ContextProvider = (props) => {
       if (!request.ok) {
         throw new Error("Something went wrong");
       }
-      setIsLoggedIn(true);
       const responseObj = await request.json();
       setUserId(responseObj.localId);
+      setIsLoggedIn(true);
       setIsShown(false);
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
     navigate("/blogs", { replace: true });
+  };
+  const logout = () => {
+      setIsLoggedIn(false);
   };
   const initialValue = {
     isShown,
     setIsShown,
     isLoggedIn,
     setIsLoggedIn,
-    blogId,
-    setBlogId,
     listArr,
     setListArr,
     addListArr: addBlog,
@@ -163,6 +155,7 @@ const ContextProvider = (props) => {
     fetchListData,
     signUp,
     login,
+    logout,
   };
   return (
     <BlogContext.Provider value={initialValue}>

@@ -4,7 +4,7 @@ import classes from "./Header.module.css";
 import { useContext } from "react";
 import { BlogContext } from "../../store/blog-context";
 const Header = (props) => {
-  const {isLoggedIn} = useContext(BlogContext);
+  const {isLoggedIn,logout} = useContext(BlogContext);
   return (
     <header className={classes.header}>
       <Link to="/blogs" className={classes.heading}>{props.heading}</Link>
@@ -23,7 +23,7 @@ const Header = (props) => {
         {!isLoggedIn && <button type="button" onClick={() => props.onAction("SignUp")}>
           Sign up
         </button>}
-        {isLoggedIn && <button type="button" onClick={() => null}>
+        {isLoggedIn && <button type="button" onClick={logout}>
           Log out
         </button>}
       </div>

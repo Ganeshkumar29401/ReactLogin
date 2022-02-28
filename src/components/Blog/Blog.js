@@ -8,19 +8,19 @@ const Blog = (props) => {
   const { isShown, fetchListData, listArr, isLoggedIn } =
     useContext(BlogContext);
   useEffect(() => {
-    fetchListData();
+      fetchListData();
   }, []);
   return (
     <ul className={classes.lists}>
-      {isShown && <Loader />}
-      {console.log("shown", isShown, "login", isLoggedIn)}
+      {isShown&& <Loader />}
       {listArr.length === 0 && !isShown && isLoggedIn && <EmptyBlog />}
       {!isShown &&
         isLoggedIn &&
         listArr.length > 0 &&
         listArr.map((ele) => (
           <BlogList
-            key={ele.id}
+            key={ele.blogId}
+            blogParams = {ele.blogId}
             id={ele.id}
             title={ele.title}
             description={ele.description}

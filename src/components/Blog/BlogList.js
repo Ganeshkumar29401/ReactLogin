@@ -6,7 +6,7 @@ const BlogList = (props) => {
   return (
     <li
       className={classes.main}
-      onClick={() => navi(`/blogs/${props.id}`, { replace: false })}
+      onClick={() => navi(`/blogs/${props.blogParams}`, { replace: false })}
     >
       <div>
         <h2>{props.title}</h2>

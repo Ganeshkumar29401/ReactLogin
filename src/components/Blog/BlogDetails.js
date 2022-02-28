@@ -1,21 +1,19 @@
 import { useEffect, useContext, useState, Fragment } from "react";
 import { BlogContext } from "../../store/blog-context";
-import { useParams } from "react-router-dom";
 import classes from "./BlogDetails.module.css";
 import Loader from "../UI/Loader";
 
 const BlogDetails = (props) => {
   const {BlogId} = props;
   const [data, setData] = useState({});
-  const { blogid } = useParams();
-  const { setIsShown, isShown,setBlogId,deleteListArr } = useContext(BlogContext);
+  const { setIsShown, isShown,deleteListArr } = useContext(BlogContext);
   useEffect(() => {
     setIsShown(true);
     try {
       const domain = process.env.REACT_APP_PROTOCAL;
       const url = process.env.REACT_APP_BACKEND;
       const call = async () => {
-        const req = await fetch(`${domain}://${url}/blogs/${blogid}.json`);
+        const req = await fetch(`${domain}://${url}/blogs/${BlogId}.json`);
 
         if (!req.ok) {
           throw new Error("Something went wrong! please try again later");
@@ -29,9 +27,8 @@ const BlogDetails = (props) => {
     } catch (error) {
       console.log(error.message);
     }
-  }, [blogid, setIsShown]);
+  }, [BlogId, setIsShown]);
   const deleteBlogHandler = () => {
-    setBlogId(BlogId);
     deleteListArr(BlogId);
   };
   return (  
